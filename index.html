@@ -315,8 +315,22 @@
       <div class="card">
         <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
         <h3>Supervision &amp; détection d'intrusion</h3>
-        <p>Mise en place de Zabbix pour la supervision proactive des serveurs et services, et de Wazuh (SIEM) pour la collecte et l'analyse des logs et la détection d'intrusions.</p>
-        <div class="tags"><span class="tag">Zabbix</span><span class="tag">Wazuh</span><span class="tag">SIEM</span></div>
+        <p>Mise en place de Zabbix pour la supervision proactive des serveurs et services, de Suricata intégré à OPNsense pour la détection d'intrusion réseau (IDS), et de Wazuh (SIEM) pour la collecte et l'analyse des logs.</p>
+        <div class="tags"><span class="tag">Zabbix</span><span class="tag">Suricata</span><span class="tag">IDS</span><span class="tag">Wazuh</span><span class="tag">SIEM</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Réponse automatisée aux menaces</h3>
+        <p>Intégration de CrowdSec à OPNsense, puis liaison avec Carbonio : la messagerie transmet les IP et expéditeurs malveillants détectés à CrowdSec, qui déclenche le bannissement automatique au niveau du pare-feu via les bouncers.</p>
+        <div class="tags"><span class="tag">CrowdSec</span><span class="tag">OPNsense</span><span class="tag">Carbonio</span><span class="tag">Bouncers</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Publication sécurisée de sites internes</h3>
+        <p>WAF avec aaPanel Pro combiné à un reverse proxy HAProxy sur OPNsense pour publier des sites internes vers l'extérieur ; certificats gérés via le client ACME d'OPNsense, résolution DNS via Cloudflare.</p>
+        <div class="tags"><span class="tag">aaPanel Pro</span><span class="tag">WAF</span><span class="tag">HAProxy</span><span class="tag">ACME</span><span class="tag">Cloudflare DNS</span></div>
       </div>
 
       <div class="card">
@@ -371,6 +385,7 @@
         <h4>Sécurité</h4>
         <ul>
           <li>OPNsense, FortiGate</li>
+          <li>Suricata (IDS), CrowdSec</li>
           <li>VPN — OpenVPN, IPsec</li>
           <li>Supervision — Zabbix, Wazuh</li>
         </ul>
@@ -379,8 +394,9 @@
         <h4>Virtualisation &amp; hébergement</h4>
         <ul>
           <li>Proxmox VE, VMware ESXi/Workstation</li>
-          <li>aaPanel, ISPConfig, reverse proxy</li>
+          <li>aaPanel Pro (WAF), HAProxy, ISPConfig</li>
           <li>Carbonio CE, IMAP/SMTP</li>
+          <li>Cloudflare (DNS)</li>
         </ul>
       </div>
     </div>
