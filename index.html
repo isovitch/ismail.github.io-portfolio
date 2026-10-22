@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ismail AFFO — Admin Systèmes · Réseaux · Sécurité</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blueprint:#0d2b4a;
+    --blueprint-deep:#0a2138;
+    --paper:#eef2f3;
+    --paper-edge:#cdd7da;
+    --ink:#18222c;
+    --ink-soft:#48555f;
+    --amber:#e2922f;
+    --amber-soft:rgba(226,146,47,0.16);
+    --green:#5fae72;
+    --green-soft:rgba(95,174,114,0.16);
+    --on-blue:#eef3f8;
+    --on-blue-muted:#9fb7cf;
+    --line:#274a6b;
+    --display:'Space Grotesk',sans-serif;
+    --body-f:'IBM Plex Sans',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:var(--blueprint);
+    background-image:
+      radial-gradient(60% 50% at 12% -5%, rgba(94,200,216,0.20), transparent 70%),
+      radial-gradient(50% 45% at 95% 0%, rgba(226,146,47,0.16), transparent 70%),
+      radial-gradient(55% 50% at 55% 25%, rgba(95,174,114,0.12), transparent 70%);
+    background-repeat:no-repeat;
+    background-size:100% 950px;
+    color:var(--on-blue);
+    font-family:var(--body-f);
+    -webkit-font-smoothing:antialiased;
+  }
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+  a{color:inherit;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:40;
+    background:rgba(13,43,74,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1040px;margin:0 auto;padding:12px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.5px;
+  }
+  .nav-doc{color:var(--on-blue-muted);white-space:nowrap;}
+  .nav-doc b{color:var(--amber);}
+  .nav-links{display:flex;gap:18px;overflow-x:auto;}
+  .nav-links a{text-decoration:none;color:var(--on-blue-muted);white-space:nowrap;}
+  .nav-links a:hover{color:var(--amber);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:64px 0 40px;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;}
+  .eyebrow{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;
+    color:var(--amber);text-transform:uppercase;margin:0 0 10px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
+  .eyebrow.green{color:var(--green);}
+  h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(34px,5vw,52px);line-height:1.04;
+    margin:0 0 10px;letter-spacing:-.5px;
+  }
+  .role{
+    font-family:var(--mono);font-size:14px;color:var(--on-blue-muted);
+    margin:0 0 18px;letter-spacing:.3px;
+  }
+  .bio{font-size:15.5px;line-height:1.65;color:var(--on-blue-muted);max-width:480px;margin:0 0 26px;}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.3px;
+    padding:11px 18px;border-radius:3px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:var(--amber);color:#1a1305;font-weight:600;}
+  .btn-ghost{border:1px solid var(--line);color:var(--on-blue);}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary:hover{box-shadow:0 6px 18px rgba(226,146,47,.35);}
+  @media (prefers-reduced-motion: reduce){ .btn:hover{transform:none;} }
+
+  .status-panel-box{display:flex;justify-content:center;}
+  .status-panel{
+    width:100%;max-width:330px;border-radius:10px;overflow:hidden;
+    background:rgba(255,255,255,0.045);
+    border:1px solid var(--line);
+    box-shadow:0 24px 50px rgba(0,0,0,.35);
+  }
+  .status-panel-bar{
+    display:flex;align-items:center;gap:6px;
+    padding:9px 13px;border-bottom:1px solid var(--line);
+    background:rgba(255,255,255,0.03);
+  }
+  .sp-dot{width:8px;height:8px;border-radius:50%;}
+  .sp-dot.r{background:#c9756a;} .sp-dot.y{background:#d8b65c;} .sp-dot.g{background:#5fae72;}
+  .sp-title{margin-left:6px;font-family:var(--mono);font-size:10px;color:var(--on-blue-muted);letter-spacing:.3px;}
+  .status-panel-body{padding:6px 14px 2px;}
+  .status-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.09);
+    font-family:var(--mono);font-size:11px;
+  }
+  .status-row:last-child{border-bottom:none;}
+  .sr-label{display:flex;align-items:center;gap:8px;color:var(--on-blue);}
+  .sr-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(95,174,114,.8);flex-shrink:0;}
+  .sr-value{color:var(--on-blue-muted);}
+  .status-panel-footer{padding:10px 14px 14px;border-top:1px solid var(--line);margin-top:4px;}
+  .spark{width:100%;height:46px;display:block;}
+  .spark-label{font-family:var(--mono);font-size:9px;color:var(--on-blue-muted);margin-top:6px;display:block;letter-spacing:.3px;}
+
+  /* title block — signature element */
+  .titleblock{
+    margin-top:26px;border:1px solid var(--line);
+    font-family:var(--mono);font-size:11px;
+    background:rgba(10,33,56,0.5);
+  }
+  .titleblock-row{
+    display:grid;grid-template-columns:120px 1fr;
+    border-bottom:1px solid var(--line);
+  }
+  .titleblock-row:last-child{border-bottom:none;}
+  .titleblock-row span{padding:7px 10px;}
+  .titleblock-row span:first-child{
+    color:var(--on-blue-muted);border-right:1px solid var(--line);
+    letter-spacing:.5px;
+  }
+  .titleblock-row span:last-child{color:var(--on-blue);font-weight:600;}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:54px 0;}
+  .section-head{margin-bottom:28px;}
+  .section-head h2{
+    font-family:var(--display);font-size:25px;font-weight:600;margin:0;
+    color:var(--on-blue);
+  }
+  .section-sub{color:var(--on-blue-muted);font-size:13.5px;margin:6px 0 0;max-width:560px;}
+
+  /* ---------- PROJECT CARDS ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+  .card{
+    background:var(--paper);color:var(--ink);
+    border:1px solid var(--paper-edge);
+    padding:18px 18px 20px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.28);}
+  @media (prefers-reduced-motion: reduce){ .card:hover{transform:none;} }
+  .card-top{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);
+    margin-bottom:10px;letter-spacing:.3px;
+  }
+  .status-chip{
+    display:inline-flex;align-items:center;gap:5px;
+    padding:3px 8px;border-radius:20px;font-weight:600;
+  }
+  .status-chip.live{background:var(--green-soft);color:#2f6e42;}
+  .status-chip.planned{background:var(--amber-soft);color:#8a5a14;}
+  .status-chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .card h3{font-family:var(--display);font-size:16.5px;margin:0 0 8px;}
+  .card p{font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin:0 0 12px;}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{
+    font-family:var(--mono);font-size:10px;color:var(--ink);
+    background:#dfe6e7;padding:3px 8px;border-radius:3px;
+  }
+
+  .card-wide{grid-column:1 / -1;}
+  .stat-panel{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:14px;
+    margin:14px 0 16px;
+    padding:14px 16px;
+    background:var(--blueprint);
+    border:1px solid var(--paper-edge);
+  }
+  .stat-tile{text-align:left;}
+  .stat-num{
+    font-family:var(--mono);font-weight:700;font-size:22px;
+    color:var(--amber);line-height:1.1;display:block;
+  }
+  .stat-label{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.5px;
+    color:var(--on-blue-muted);text-transform:uppercase;display:block;margin-top:4px;
+  }
+  .stat-caption{
+    font-family:var(--mono);font-size:10px;color:var(--ink-soft);
+    margin:-2px 0 0;
+  }
+
+  /* ---------- LEGEND (skills) ---------- */
+  .legend-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+  .legend-group h4{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.6px;
+    color:var(--amber);text-transform:uppercase;margin:0 0 12px;
+    border-bottom:1px solid var(--line);padding-bottom:8px;
+  }
+  .legend-group ul{list-style:none;margin:0;padding:0;}
+  .legend-group li{
+    display:flex;align-items:center;gap:9px;
+    font-size:13.5px;color:var(--on-blue-muted);padding:5px 0;
+  }
+  .legend-group li::before{
+    content:"";width:9px;height:9px;border:1.3px solid var(--on-blue-muted);
+    flex-shrink:0;
+  }
+
+  /* ---------- FUTURE LABS (placeholders) ---------- */
+  .lab-card{
+    border:1.4px dashed var(--line);padding:18px;
+    background:rgba(10,33,56,0.35);
+  }
+  .lab-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .lab-top .status-chip.planned{background:transparent;border:1px solid var(--amber);color:var(--amber);}
+  .lab-card h3{font-family:var(--display);font-size:16px;margin:0 0 6px;color:var(--on-blue);}
+  .lab-card .weeks{font-family:var(--mono);font-size:11px;color:var(--amber);margin-bottom:8px;display:block;}
+  .lab-card p{font-size:13px;line-height:1.55;color:var(--on-blue-muted);margin:0;}
+
+  /* ---------- CERTIFICATIONS ---------- */
+  .stamps{display:flex;flex-wrap:wrap;gap:22px;}
+  .stamp{
+    width:124px;height:124px;border-radius:50%;
+    border:1.6px dashed var(--amber);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;font-family:var(--mono);color:var(--on-blue);
+    padding:10px;transform:rotate(-4deg);
+  }
+  .stamp b{font-size:13px;letter-spacing:.4px;}
+  .stamp span{font-size:9.5px;color:var(--on-blue-muted);margin-top:5px;line-height:1.4;}
+  .formation-note{margin-top:18px;font-size:13px;color:var(--on-blue-muted);}
+  .formation-note b{color:var(--on-blue);}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);padding:30px 0 50px;}
+  .footer-inner{
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;
+    font-family:var(--mono);font-size:12px;color:var(--on-blue-muted);
+  }
+  .footer-inner a:hover{color:var(--amber);}
+  .footer-rev{color:var(--on-blue-muted);}
+  .footer-contact{display:flex;flex-direction:column;gap:4px;align-items:flex-start;}
+
+  @media (max-width:760px){
+    .hero-grid{grid-template-columns:1fr;}
+    .status-panel-box{order:-1;max-width:300px;margin:0 auto 16px;}
+    .bio{max-width:100%;}
+    .footer-inner{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-doc">FICHE TECHNIQUE — <b>IS. AFFO</b></span>
+    <div class="nav-links">
+      <a href="#projets">Projets</a>
+      <a href="#competences">Compétences</a>
+      <a href="#labos">Labos à venir</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>LOMÉ, TOGO</p>
+        <h1>ISMAIL AFFO</h1>
+        <p class="role">ADMIN SYSTÈMES · RÉSEAUX · SÉCURITÉ</p>
+        <p class="bio">J'interviens sur le déploiement et le maintien en conditions opérationnelles d'infrastructures critiques — virtualisation, sécurisation périmétrique, supervision et messagerie d'entreprise. Ce site rassemble les projets que j'ai menés et ceux que je construis actuellement en autoformation.</p>
+        <div class="cta-row">
+          <a href="#projets" class="btn btn-primary">Voir les projets</a>
+          <a href="#contact" class="btn btn-ghost">Me contacter</a>
+        </div>
+
+        <div class="titleblock">
+          <div class="titleblock-row"><span>NOM</span><span>Ismail AFFO</span></div>
+          <div class="titleblock-row"><span>RÔLE</span><span>Admin Systèmes · Réseaux · Sécurité</span></div>
+          <div class="titleblock-row"><span>BASE</span><span>Lomé, Togo</span></div>
+          <div class="titleblock-row"><span>RÉV.</span><span>2026.10 — mise à jour continue</span></div>
+        </div>
+      </div>
+
+      <div class="status-panel-box">
+        <div class="status-panel">
+          <div class="status-panel-bar">
+            <span class="sp-dot r"></span><span class="sp-dot y"></span><span class="sp-dot g"></span>
+            <span class="sp-title">infra — aperçu</span>
+          </div>
+          <div class="status-panel-body">
+            <div class="status-row">
+              <span class="sr-label"><span class="sr-dot"></span>OPNsense — Pare-feu</span>
+              <span class="sr-value">actif</span>
+            </div>
+            <div class="status-row">
+              <span class="sr-label"><span class="sr-dot"></span>Proxmox VE</span>
+              <span class="sr-value">10+ serveurs</span>
+            </div>
+            <div class="status-row">
+              <span class="sr-label"><span class="sr-dot"></span>Zabbix — Supervision</span>
+              <span class="sr-value">supervision active</span>
+            </div>
+            <div class="status-row">
+              <span class="sr-label"><span class="sr-dot"></span>Wazuh — SIEM</span>
+              <span class="sr-value">détection active</span>
+            </div>
+          </div>
+          <div class="status-panel-footer">
+            <svg class="spark" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#e2922f" stop-opacity="0.35"></stop>
+                  <stop offset="100%" stop-color="#e2922f" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+              <path d="M0,45 L20,40 L40,42 L60,30 L80,34 L100,20 L120,25 L140,15 L160,22 L180,12 L200,18 L220,10 L240,16 L260,8 L280,14 L300,6 L300,60 L0,60 Z" fill="url(#sparkFill)"></path>
+              <path d="M0,45 L20,40 L40,42 L60,30 L80,34 L100,20 L120,25 L140,15 L160,22 L180,12 L200,18 L220,10 L240,16 L260,8 L280,14 L300,6" fill="none" stroke="#e2922f" stroke-width="1.6"></path>
+            </svg>
+            <span class="spark-label">Trafic réseau (illustration)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <div class="section-head">
+      <p class="eyebrow green"><span class="dot"></span>PROJETS RÉALISÉS — EN PRODUCTION</p>
+      <h2>Études de cas</h2>
+      <p class="section-sub">Issus de mes missions chez NG-STARs et CER-ETI — chacun décrit le contexte, ce que j'ai mis en place, et le résultat.</p>
+    </div>
+    <div class="cards">
+
+      <div class="card card-wide">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Migration de messagerie d'entreprise</h3>
+        <p>Remplacement d'un ancien serveur mail par Carbonio CE : migration de l'ensemble des boîtes via IMAPSync, reprise des domaines et comptes, mise en place des quotas et de l'authentification IMAP/SMTP sécurisée.</p>
+        <div class="stat-panel">
+          <div class="stat-tile"><span class="stat-num">4</span><span class="stat-label">Domaines migrés</span></div>
+          <div class="stat-tile"><span class="stat-num">102</span><span class="stat-label">Comptes migrés</span></div>
+          <div class="stat-tile"><span class="stat-num">5&nbsp;772</span><span class="stat-label">Mails transférés</span></div>
+          <div class="stat-tile"><span class="stat-num">8.36&nbsp;Go</span><span class="stat-label">Volume total</span></div>
+        </div>
+        <p class="stat-caption">Source : rapport de migration généré automatiquement en fin de bascule.</p>
+        <div class="tags"><span class="tag">Carbonio CE</span><span class="tag">IMAPSync</span><span class="tag">IMAP/SMTP</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Sécurisation du périmètre réseau</h3>
+        <p>Déploiement et administration de pare-feu OPNsense et Fortinet : politiques de filtrage, VPN OpenVPN/IPsec pour les accès distants, certificats SSL automatisés via ACME/Let's Encrypt, règles NAT.</p>
+        <div class="tags"><span class="tag">OPNsense</span><span class="tag">FortiGate</span><span class="tag">OpenVPN/IPsec</span><span class="tag">ACME</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Supervision &amp; détection d'intrusion</h3>
+        <p>Mise en place de Zabbix pour la supervision proactive des serveurs et services, de Suricata intégré à OPNsense pour la détection d'intrusion réseau (IDS), et de Wazuh (SIEM) pour la collecte et l'analyse des logs.</p>
+        <div class="tags"><span class="tag">Zabbix</span><span class="tag">Suricata</span><span class="tag">IDS</span><span class="tag">Wazuh</span><span class="tag">SIEM</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Réponse automatisée aux menaces</h3>
+        <p>Intégration de CrowdSec à OPNsense, puis liaison avec Carbonio : la messagerie transmet les IP et expéditeurs malveillants détectés à CrowdSec, qui déclenche le bannissement automatique au niveau du pare-feu via les bouncers.</p>
+        <div class="tags"><span class="tag">CrowdSec</span><span class="tag">OPNsense</span><span class="tag">Carbonio</span><span class="tag">Bouncers</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Publication sécurisée de sites internes</h3>
+        <p>WAF avec aaPanel Pro combiné à un reverse proxy HAProxy sur OPNsense pour publier des sites internes vers l'extérieur ; certificats gérés via le client ACME d'OPNsense, résolution DNS via Cloudflare.</p>
+        <div class="tags"><span class="tag">aaPanel Pro</span><span class="tag">WAF</span><span class="tag">HAProxy</span><span class="tag">ACME</span><span class="tag">Cloudflare DNS</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Socle de virtualisation &amp; services internes</h3>
+        <p>Plus de 10 serveurs en production sur Proxmox VE et VMware ESXi — dont des serveurs dédiés mis à disposition des développeurs pour le déploiement de leurs applications. Gestion des ressources, snapshots et sauvegardes, et déploiement de Nextcloud pour le stockage et la collaboration interne.</p>
+        <div class="tags"><span class="tag">Proxmox VE</span><span class="tag">VMware ESXi</span><span class="tag">Linux</span><span class="tag">Windows Server</span><span class="tag">Nextcloud</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>CER-ETI · depuis 2026</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Vidéosurveillance &amp; contrôle d'accès</h3>
+        <p>Installation et configuration de caméras IP Dahua, Hikvision et Matrix, d'enregistreurs NVR, avec gestion centralisée et intégration des caméras via DSS Pro. Contrôle d'accès par badges RFID et empreinte digitale : pose, câblage et configuration. Configuration d'autocommutateurs Matrix.</p>
+        <div class="tags"><span class="tag">DSS Pro</span><span class="tag">Dahua</span><span class="tag">Hikvision</span><span class="tag">Matrix</span><span class="tag">NVR</span><span class="tag">RFID</span><span class="tag">Biométrie</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Téléphonie IP (VoIP)</h3>
+        <p>Déploiement, configuration et administration de PBX Elastix et Issabel (extensions, trunks, services VoIP), et configuration de téléphones IP de différentes marques : Yealink, Grandstream et Matrix.</p>
+        <div class="tags"><span class="tag">Elastix</span><span class="tag">Issabel</span><span class="tag">Yealink</span><span class="tag">Grandstream</span><span class="tag">Matrix</span></div>
+      </div>
+
+      <div class="card card-wide">
+        <div class="card-top"><span>CER-ETI · NG-STARs</span><span class="status-chip live"><span class="dot"></span>Prestations clients</span></div>
+        <h3>Interventions chez des clients</h3>
+        <p>Missions réalisées en tant que prestataire de service : sécurité physique, vidéosurveillance, téléphonie, réseaux et infrastructures.</p>
+        <div class="tags"><span class="tag">SABER-ABREC</span><span class="tag">African Guarantee Fund</span><span class="tag">ECOBANK Togo</span><span class="tag">FUCEC Togo / COOPEC EELO</span><span class="tag">African Lease Togo</span><span class="tag">ABAYOCO SA</span><span class="tag">ADTF</span><span class="tag">SARA CONSULT</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span>NG-STARs · 2025</span><span class="status-chip live"><span class="dot"></span>En production</span></div>
+        <h3>Support &amp; gestion de parc</h3>
+        <p>Déploiement de GLPI pour la gestion des tickets utilisateurs et du parc informatique, avec rédaction de documentation technique pour les équipes.</p>
+        <div class="tags"><span class="tag">GLPI</span><span class="tag">Documentation</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMPETENCES -->
+  <section id="competences">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dot"></span>LÉGENDE</p>
+      <h2>Compétences techniques</h2>
+    </div>
+    <div class="legend-grid">
+      <div class="legend-group">
+        <h4>Réseaux</h4>
+        <ul>
+          <li>Cisco, FortiGate, MikroTik, TP-Link</li>
+          <li>VLAN, switching, routage TCP/IP</li>
+          <li>DHCP, DNS</li>
+          <li>Câblage RJ45, sertissage &amp; tests</li>
+        </ul>
+      </div>
+      <div class="legend-group">
+        <h4>Systèmes</h4>
+        <ul>
+          <li>Linux — Debian, Ubuntu</li>
+          <li>Windows Server (AD DS, GPO, DHCP, DNS)</li>
+          <li>Windows, macOS</li>
+        </ul>
+      </div>
+      <div class="legend-group">
+        <h4>Sécurité</h4>
+        <ul>
+          <li>OPNsense, FortiGate</li>
+          <li>Suricata (IDS), CrowdSec</li>
+          <li>VPN — OpenVPN, IPsec</li>
+          <li>Supervision — Zabbix, Wazuh</li>
+        </ul>
+      </div>
+      <div class="legend-group">
+        <h4>Virtualisation &amp; hébergement</h4>
+        <ul>
+          <li>Proxmox VE, VMware ESXi/Workstation</li>
+          <li>aaPanel Pro (WAF), HAProxy, ISPConfig</li>
+          <li>Carbonio CE, Nextcloud</li>
+          <li>Cloudflare (DNS)</li>
+        </ul>
+      </div>
+      <div class="legend-group">
+        <h4>Téléphonie &amp; sécurité physique</h4>
+        <ul>
+          <li>Elastix, Issabel, autocoms Matrix</li>
+          <li>Téléphones IP Yealink, Grandstream, Matrix</li>
+          <li>DSS Pro, caméras Dahua / Hikvision / Matrix</li>
+          <li>Contrôle d'accès RFID et biométrie</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LABOS A VENIR -->
+  <section id="labos">
+    <div class="section-head">
+      <p class="eyebrow"><span class="dot"></span>EN CONSTRUCTION — MAJ AU FIL DES SEMAINES</p>
+      <h2>Labos en cours</h2>
+      <p class="section-sub">Chaque encart se remplira avec un projet concret au fil de ma montée en compétences. Reviens régulièrement.</p>
+    </div>
+    <div class="cards">
+      <div class="lab-card">
+        <div class="lab-top"><span class="status-chip planned"><span class="dot"></span>Planifié</span></div>
+        <h3>Automatisation Bash &amp; Python</h3>
+        <span class="weeks">Semaines 1–4</span>
+        <p>Scripts de sauvegarde, de health-check et de reporting, puis premiers playbooks Ansible.</p>
+      </div>
+      <div class="lab-card">
+        <div class="lab-top"><span class="status-chip planned"><span class="dot"></span>Planifié</span></div>
+        <h3>Lab Active Directory</h3>
+        <span class="weeks">Semaines 5–7</span>
+        <p>Déploiement AD DS / DNS / DHCP, GPO de sécurité et automatisation PowerShell sur un domaine de test.</p>
+      </div>
+      <div class="lab-card">
+        <div class="lab-top"><span class="status-chip planned"><span class="dot"></span>Planifié</span></div>
+        <h3>Cloud — AWS puis Azure</h3>
+        <span class="weeks">Semaines 8–11</span>
+        <p>Premiers déploiements EC2 / VPC / S3, puis prise en main d'Azure et d'Entra ID.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="section-head">
+      <p class="eyebrow green"><span class="dot"></span>VALIDÉES</p>
+      <h2>Certifications</h2>
+    </div>
+    <div class="stamps">
+      <div class="stamp"><b>FCA</b><span>Fortinet Certified<br>Associate · Juil. 2024</span></div>
+      <div class="stamp"><b>CYBER</b><span>SecNumAcadémie<br>ANSSI · 2023</span></div>
+      <div class="stamp"><b>GNS3</b><span>Architectures réseaux<br>OpenClassrooms · 2023</span></div>
+    </div>
+    <p class="formation-note"><b>Formation —</b> Licence 3, ESGIS, 2024 · BAC II Série D, 2020</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-contact">
+      <a href="mailto:ismailaffo118@gmail.com">ismailaffo118@gmail.com</a>
+      <a href="tel:+22870015501">+228 70 01 55 01</a>
+      <a href="https://www.linkedin.com/in/ismail-affo-7b8545334" target="_blank" rel="noopener">linkedin.com/in/ismail-affo-7b8545334</a>
+    </div>
+    <span class="footer-rev">Document vivant — mis à jour au fil des projets et certifications · Rév. 2026.10</span>
+  </div>
+</footer>
+
+</body>
+</html>
